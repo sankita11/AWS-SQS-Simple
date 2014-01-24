@@ -3,7 +3,6 @@ package AWS::SQS::Simple;
 use warnings                                       ;
 use strict                                         ; 
 
-use Data::Dump qw( dump )                          ;
 use Carp                                           ;
 
 use utf8                                           ;
@@ -197,13 +196,8 @@ Usage :
 
       QUEUE_NAME              => QUEUE Name        ,
 
-      'AttributeName.1.Name'  => Attribute Name    , 
-      'AttributeName.1.Value' => Attribute Value   , [ Required if there is a corresponding Name Attribute.n.name parameter ]
-
-      'AttributeName.2.Name'  => Attribute Name    , 
-      'AttributeName.2.Value' => Attribute Value   , [ Required if there is a corresponding Name Attribute.n.name parameter ]
-
-    .....
+      'MessageBody'           => Message to send   , 
+      'DelaySeconds'          => The number of seconds to delay a specific message , [ OPTIONAL ]
 
      );
 
@@ -248,7 +242,20 @@ sub send_message {
 	
 This function returns mesaages already in the queue specified.
 
-This function is used externally.
+Usage :
+
+ my %params_hash = (
+
+      QUEUE_NAME            => QUEUE Name        ,
+
+    'AttributeName.n'       => The attribute you want to get. Valid values: All | SenderId | SentTimestamp | ApproximateReceiveCount | ApproximateFirstReceiveTimestamp   ,  [ OPTIONAL ]
+      'MaxNumberOfMessages' => Maximum number of messages to return. Default - 1 , [ OPTIONAL ]
+      'VisibilityTimeout'   => The duration in seconds that the received messages are hidden from subsequent retrieve requests after being retrieved by a ReceiveMessage request. Default - The visibility timeout for the queue , [ OPTIONAL ]
+      'WaitTimeSeconds'     => Long poll support (integer from 1 to 20 , [ OPTIONAL ]
+
+     );
+
+$ob->receive_message->( \%params_hash )
 
 =cut
 
@@ -278,7 +285,17 @@ sub receive_message {
 	
 This function deletes a message from the queue.
 
-This function is used externally.
+Usage :
+
+ my %params_hash = (
+
+      QUEUE_NAME            => QUEUE Name        ,
+
+     'ReceiptHandle'       => The receipt handle associated with the message you want to delete ,
+     );
+
+$ob->delete_message->( \%params_hash )
+
 
 =cut
 
@@ -315,7 +332,17 @@ sub delete_message {
 	
 This function returns queue attributes.
 
-This function is used externally.
+Usage :
+
+ my %params_hash = (
+
+      QUEUE_NAME            => QUEUE Name                    ,
+
+     'AttributeName.n'      => The attribute you want to get ,
+     );
+
+$ob->get_queue_attributes->( \%params_hash )
+
 
 =cut
 
@@ -503,9 +530,8 @@ sub _make_request {
 
 	    $contents = $response->content          ;
 	    
-	    print STDERR "ERROR : " ;
-	    dump $contents          ;
-	    
+	    print STDERR "ERROR : $contents"        ;  
+
 	    $attempts++             ;
 	    sleep( $attempts * 10 ) ;
 	    
@@ -530,39 +556,11 @@ sub _make_request {
 Ankita, C<< <sankita.11 at gmail.com> >>
 
 
-=head1 SUPPORT
-
-You can find documentation for this module with the perldoc command.
-
-    perldoc AWS::SQS::Simple
-
-
-You can also look for information at:
-
-=over 2
-
-=item * LS: 4am perl module support
-
-L<perl_module_support AT 4am.co.in>
-
-=item * Anno4rou: Anno4rou: Annotated 4am perl module documentation
-
-L<http://192.168.0.3/localPerlModuleListings/anno4our/dist/AWS-SQS-Simple.html>
-
-=back
-
-
-=head1 ACKNOWLEDGEMENTS
-
-
 =head1 COPYRIGHT & LICENSE
 
-Copyright 2013 4am, all rights reserved.
+Copyright 2014 Ankita Singhal, all rights reserved.
 
-This program is NOT free software; 
-
-This program belongs to 4am Design and Technology Labs and can NOT be used externally.
-
+This library is free software; you can redistribute it and/or modify it under the same terms as Perl itself.
 
 =cut
 
