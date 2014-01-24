@@ -530,39 +530,11 @@ sub _make_request {
 Ankita, C<< <sankita.11 at gmail.com> >>
 
 
-=head1 SUPPORT
-
-You can find documentation for this module with the perldoc command.
-
-    perldoc AWS::SQS::Simple
-
-
-You can also look for information at:
-
-=over 2
-
-=item * LS: 4am perl module support
-
-L<perl_module_support AT 4am.co.in>
-
-=item * Anno4rou: Anno4rou: Annotated 4am perl module documentation
-
-L<http://192.168.0.3/localPerlModuleListings/anno4our/dist/AWS-SQS-Simple.html>
-
-=back
-
-
-=head1 ACKNOWLEDGEMENTS
-
-
 =head1 COPYRIGHT & LICENSE
 
-Copyright 2013 4am, all rights reserved.
+Copyright 2014 Ankita Singhal, all rights reserved.
 
-This program is NOT free software; 
-
-This program belongs to 4am Design and Technology Labs and can NOT be used externally.
-
+This library is free software; you can redistribute it and/or modify it under the same terms as Perl itself.
 
 =cut
 
