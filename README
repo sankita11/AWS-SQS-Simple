@@ -24,27 +24,9 @@ To install this module, run the following commands:
 	make test
 	make install
 
-SUPPORT AND DOCUMENTATION
-
-After installing, you can find documentation for this module with the
-perldoc command.
-
-    perldoc AWS::SQS::Simple
-
-You can also look for information at:
-
-    LS, 4am perl module support
-        perl_module_support AT 4am.co.in
-
-    Anno4rou, Anno4rou: Annotated 4am perl module documentation
-        http://192.168.0.3/localPerlModuleListings/anno4our/dist/AWS-SQS-Simple.html
-
 
 COPYRIGHT AND LICENCE
 
-Copyright (C) 2013 4am, all rights reserved.
+Copyright (C) 2014 Ankita Singhal, all rights reserved.
 
-This program is NOT free software; 
-
-This program belongs to 4am Design and Technology Labs and can NOT be used externally.
-
+This library is free software; you can redistribute it and/or modify it under the same terms as Perl itself.
