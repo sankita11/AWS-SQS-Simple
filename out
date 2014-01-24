@@ -1,0 +1,224 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>AWS::SQS::Simple - This module is used to access amazon simple queue services.</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:root@localhost" />
+</head>
+
+<body style="background-color: white">
+
+
+<!-- INDEX BEGIN -->
+<div name="index">
+<p><a name="__index__"></a></p>
+
+<ul>
+
+	<li><a href="#name">NAME</a></li>
+	<li><a href="#version">VERSION</a></li>
+	<li><a href="#synopsis">SYNOPSIS</a></li>
+	<li><a href="#functions">FUNCTIONS</a></li>
+	<ul>
+
+		<li><a href="#new">new</a></li>
+		<li><a href="#create_queue">create_queue</a></li>
+		<li><a href="#send_message">send_message</a></li>
+		<li><a href="#receive_message">receive_message</a></li>
+		<li><a href="#delete_message">delete_message</a></li>
+		<li><a href="#get_queue_attributes">get_queue_attributes</a></li>
+		<li><a href="#_get_url">_get_url</a></li>
+		<li><a href="#_generate_signatue">_generate_signatue</a></li>
+		<li><a href="#_get_signed_query">_get_signed_query</a></li>
+		<li><a href="#escape">escape</a></li>
+		<li><a href="#_generate_timestamp">_generate_timestamp</a></li>
+		<li><a href="#_make_request">_make_request</a></li>
+	</ul>
+
+	<li><a href="#author">AUTHOR</a></li>
+	<li><a href="#support">SUPPORT</a></li>
+	<li><a href="#acknowledgements">ACKNOWLEDGEMENTS</a></li>
+	<li><a href="#copyright___license">COPYRIGHT &amp; LICENSE</a></li>
+</ul>
+
+<hr name="index" />
+</div>
+<!-- INDEX END -->
+
+<p>
+</p>
+<h1><a name="name">NAME</a></h1>
+<p>AWS::SQS::Simple - This module is used to access amazon simple queue services.</p>
+<p>
+</p>
+<hr />
+<h1><a name="version">VERSION</a></h1>
+<p>Version 0.01</p>
+<p>
+</p>
+<hr />
+<h1><a name="synopsis">SYNOPSIS</a></h1>
+<p>This module is used to access amazon simple queue services.</p>
+<p>#sqs.us-east-1.amazonaws.com</p>
+<p>Example :</p>
+<pre>
+    use AWS::SQS::Simple ;</pre>
+<pre>
+    my $ob = AWS::SQS::Simple-&gt;new(
+                ACCESS_KEY        =&gt; '..'  , 
+                SECRET_ACCESS_KEY =&gt; '..'  ,</pre>
+<pre>
+                AWS_ACCOUNT_ID    =&gt; '..'  ,</pre>
+<pre>
+                QUEUE_NAME        =&gt; '..'  ,</pre>
+<pre>
+                END_POINT         =&gt; '..'  ,</pre>
+<pre>
+                DEBUG             =&gt; 0/1   , [ OPTIONAL ]
+              );</pre>
+<pre>
+        $ob-&gt;create_queue( \%params_hash    ) ;
+        $ob-&gt;send_message( \%params_hash    ) ;
+        $ob-&gt;receive_message( \%params_hash ) ;</pre>
+<p>
+</p>
+<hr />
+<h1><a name="functions">FUNCTIONS</a></h1>
+<p>
+</p>
+<h2><a name="new">new</a></h2>
+<pre>
+  Usage:</pre>
+<pre>
+    my $ob = AWS::SQS::Simple-&gt;new(
+                ACCESS_KEY        =&gt; '..'  , 
+                SECRET_ACCESS_KEY =&gt; '..'  ,</pre>
+<pre>
+                AWS_ACCOUNT_ID    =&gt; '..'  ,</pre>
+<pre>
+                QUEUE_NAME        =&gt; '..'  ,</pre>
+<pre>
+                END_POINT         =&gt; '..'  ,</pre>
+<pre>
+                DEBUG             =&gt; 0/1   , [ OPTIONAL ]
+              );</pre>
+<p>
+</p>
+<h2><a name="create_queue">create_queue</a></h2>
+<pre>
+
+This function creates a new queue.</pre>
+<p>usage :</p>
+<pre>
+ my %params_hash = (</pre>
+<pre>
+      QUEUE_NAME              =&gt; QUEUE Name        ,</pre>
+<pre>
+      'AttributeName.1.Name'  =&gt; Attribute Name    , 
+      'AttributeName.1.Value' =&gt; Attribute Value   , [ Required if there is a corresponding Name Attribute.n.name parameter ]</pre>
+<pre>
+      'AttributeName.2.Name'  =&gt; Attribute Name    , 
+      'AttributeName.2.Value' =&gt; Attribute Value   , [ Required if there is a corresponding Name Attribute.n.name parameter ]</pre>
+<pre>
+    .....</pre>
+<pre>
+     );</pre>
+<p>$ob-&gt;create_queue-&gt;( \%params_hash )</p>
+<p>
+</p>
+<h2><a name="send_message">send_message</a></h2>
+<pre>
+
+This function sends a message to the queue.</pre>
+<p>This function is used externally.</p>
+<p>
+</p>
+<h2><a name="receive_message">receive_message</a></h2>
+<pre>
+
+This function returns mesaages already in the queue specified.</pre>
+<p>This function is used externally.</p>
+<p>
+</p>
+<h2><a name="delete_message">delete_message</a></h2>
+<pre>
+
+This function deletes a message from the queue.</pre>
+<p>This function is used externally.</p>
+<p>
+</p>
+<h2><a name="get_queue_attributes">get_queue_attributes</a></h2>
+<pre>
+
+This function returns queue attributes.</pre>
+<p>This function is used externally.</p>
+<p>
+</p>
+<h2><a name="_get_url">_get_url</a></h2>
+<pre>
+
+This function creates and returns url as per the parameters passed.</pre>
+<p>
+</p>
+<h2><a name="_generate_signatue">_generate_signatue</a></h2>
+<pre>
+
+This function generate signature using HMACSHA256 method and version 2.</pre>
+<p>
+</p>
+<h2><a name="_get_signed_query">_get_signed_query</a></h2>
+<pre>
+
+This function utf8 encodes and uri escapes the parameters passed to generate the signed string.</pre>
+<p>
+</p>
+<h2><a name="escape">escape</a></h2>
+<pre>
+    URI escape only the characters that should be escaped, according to RFC 3986</pre>
+<p>
+</p>
+<h2><a name="_generate_timestamp">_generate_timestamp</a></h2>
+<pre>
+ Calculate current TimeStamp</pre>
+<p>
+</p>
+<h2><a name="_make_request">_make_request</a></h2>
+<p>
+</p>
+<hr />
+<h1><a name="author">AUTHOR</a></h1>
+<p>Ankita, <code>&lt;sankita.11 at gmail.com&gt;</code></p>
+<p>
+</p>
+<hr />
+<h1><a name="support">SUPPORT</a></h1>
+<p>You can find documentation for this module with the perldoc command.</p>
+<pre>
+    perldoc AWS::SQS::Simple</pre>
+<p>You can also look for information at:</p>
+<ul>
+<li><strong><a name="ls_4am_perl_module_support" class="item">LS: 4am perl module support</a></strong>
+
+<p><a href="#perl_module_support_at_4am_co_in">perl_module_support AT 4am.co.in</a></p>
+</li>
+<li><strong><a name="anno4rou_anno4rou_annotated_4am_perl_module_documentation" class="item">Anno4rou: Anno4rou: Annotated 4am perl module documentation</a></strong>
+
+<p><a href="http://192.168.0.3/localPerlModuleListings/anno4our/dist/AWS-SQS-Simple.html">http://192.168.0.3/localPerlModuleListings/anno4our/dist/AWS-SQS-Simple.html</a></p>
+</li>
+</ul>
+<p>
+</p>
+<hr />
+<h1><a name="acknowledgements">ACKNOWLEDGEMENTS</a></h1>
+<p>
+</p>
+<hr />
+<h1><a name="copyright___license">COPYRIGHT &amp; LICENSE</a></h1>
+<p>Copyright 2013 4am, all rights reserved.</p>
+<p>This program is NOT free software;</p>
+<p>This program belongs to 4am Design and Technology Labs and can NOT be used externally.</p>
+
+</body>
+
+</html>
