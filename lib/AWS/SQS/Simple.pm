@@ -12,6 +12,8 @@ use HTTP::Headers                                  ;
 
 use URI::Escape                                    ;
 
+use Encode qw( encode )                            ;
+
 use Digest::SHA qw(hmac_sha256 hmac_sha256_base64) ;
 use Digest::HMAC_SHA1                              ;
 
@@ -48,8 +50,6 @@ Example :
 
                 AWS_ACCOUNT_ID    => '..'  , 
 
-                QUEUE_NAME        => '..'  , 
-
                 END_POINT         => '..'  , 
 
               );
@@ -70,8 +70,6 @@ Example :
                 SECRET_ACCESS_KEY => '..'  , 
 
                 AWS_ACCOUNT_ID    => '..'  , 
-
-                QUEUE_NAME        => '..'  , 
 
                 END_POINT         => '..'  , 
 
@@ -97,8 +95,6 @@ Usage:
 
                 AWS_ACCOUNT_ID    => '..'  , 
 
-                QUEUE_NAME        => '..'  , 
-
                 END_POINT         => '..'  , 
 
               );
@@ -107,8 +103,6 @@ Usage:
 
     %parameter_hash = @_;
 
-    croak $usage_howto                                                                  unless( $parameter_hash{ QUEUE_NAME        } );
-    
     croak $usage_howto							                unless( $parameter_hash{ AWS_ACCOUNT_ID    } ) ;
 
     croak $usage_howto						                        unless( $parameter_hash{ ACCESS_KEY        } ) ;
@@ -121,7 +115,6 @@ Usage:
 	ACCESS_KEY        => $parameter_hash{ ACCESS_KEY        } ,
 	SECRET_ACCESS_KEY => $parameter_hash{ SECRET_ACCESS_KEY } ,
 
-	QUEUE_NAME        => $parameter_hash{ QUEUE_NAME        } ,
 	AWS_ACCOUNT_ID    => $parameter_hash{ AWS_ACCOUNT_ID    } ,
 
 	END_POINT         => $parameter_hash{ END_POINT         } ,
@@ -381,7 +374,7 @@ sub _get_url {
     my $self        = shift ;
     my $params      = shift ;
 
-    my $url_additional_str = $self->{ AWS_ACCOUNT_ID } . '/' . $self->{ QUEUE_NAME }  ;
+    my $url_additional_str = $self->{ AWS_ACCOUNT_ID } . '/' . delete( $params->{ QUEUE_NAME } ) ;
 
     my $sign_query = _get_signed_query( $params ) ;
     
@@ -410,7 +403,6 @@ sub _get_url {
     my $url   =  "http://".$self->{ END_POINT }                                               ;
        $url  .=  '/' . $url_additional_str . '/' if( $params->{ Action } ne "CreateQueue"  )  ;
        $url  .=  '?' . $uri_str                                                               ;
-
 
     return $url ;
 
@@ -520,7 +512,7 @@ sub _make_request {
 	$ua->agent( 'AWIS-INFO_GET/'.$VERSION ) ;
 	
 	$response = $ua->request( $request )  ;
-	
+
 	if( $response->is_success() ) {
 	    
 	    $contents = $response->content;
@@ -565,3 +557,4 @@ This library is free software; you can redistribute it and/or modify it under th
 =cut
 
 1; # End of AWS::SQS::Simple
+
